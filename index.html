@@ -7,6 +7,76 @@
     <script src="jscript.js"></script>
 </head>
 <body>
-    
+    <div id="buttons" class="selections">
+        <button id="Rock" class="btn_rock">Rock</button>
+        <button id="Paper" class="btn_paper">Paper</button>
+        <button id="Scissor" class="btn_scissor">Scissor</button>
+    </div>
+    <p id="playerSelection">You Selected: <p>
+    <p id="computerSelection">Computer Selected: <p>
+    <div id="r_result" class="r_result">Round Result: </div>
+    <p id="playerScores">Your Score(s): </p>
+    <p id="computerScores">Computer Score(s): </p>
+    <p id="winner"></p>
+    <script>
+        const buttons = document.querySelector("#buttons");
+        const rResult = document.querySelector("#r_result");
+
+        const pSelection = document.querySelector("#playerSelection");
+        const cSelection = document.querySelector("#computerSelection");
+
+        const pScores = document.querySelector("#playerScores");
+        const cScores = document.querySelector("#computerScores");
+
+        const winner = document.querySelector("#winner");
+
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function getComputerChoice(){
+            let computerChoice = "";
+            x = Math.floor(Math.random() * 3) + 1;
+            if (x == 1) {
+                computerChoice = "Rock";
+            } else if (x == 2) {
+                computerChoice = "Paper";
+            } else {
+                computerChoice = "Scissor";
+            }
+            return computerChoice
+        }
+
+        function finalWinner(){
+            if(humanScore == 5){
+                winner.textContent = "You Won!!!";
+                humanScore = 0;
+                computerScore = 0;
+            } else if(computerScore == 5){
+                winner.textContent = "Computer Won!!!"
+                humanScore = 0;
+                computerScore = 0;
+            }
+        }
+
+        buttons.addEventListener("click", (e) => {
+            winner.textContent = ""
+
+            let target = e.target;
+            target.value = target.id;
+
+            const humanChoice = target.value;
+            const computerChoice = getComputerChoice();
+
+            playRound(humanChoice, computerChoice);
+
+            pSelection.textContent = "You Selected: " + humanChoice;
+            cSelection.textContent = "Computer Selected: " + computerChoice;
+
+            pScores.textContent = "Your Score(s): " + humanScore;
+            cScores.textContent = "Computer Score(s): " + computerScore;
+
+            finalWinner();
+        })
+    </script>
 </body>
 </html>
